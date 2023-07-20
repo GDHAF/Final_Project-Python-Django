@@ -53,25 +53,29 @@
                             <div id="exam" class="collapse">
                                         
                                 <form id="questionform" action="point to a submit view" method="post">
-                                    {% for question in lesson %}
+                                    {% for question in lesson.question_set.all %}
                                         <div class="card mt-1">
-                                            <div class="card-header"><h5>{{ question.question_text}}</h5></div>
+                                            <div class="card-header"><h5>{{ question.quest_content}}</h5></div>
                                                 {% csrf_token %}
                                                     <div class="form-group">
-                                                        {% for choice in question %}
+                                                        
+                                                        {% for choice in question.choice_set.all %}
                                                             <div class="form-check">
+                                                                
                                                                 <label class="form-check-label">
                                                                     <input type="checkbox" name="choice_{{choice.id}}"
                                                                         class="form-check-input" id="{{choice.id}}"
                                                                         value="{{choice.id}}">
-                                                                        {{ choice.choice_text }}
+                                                                        {{ choice.choice_content }}
                                                                 </label>
                                                             </div>
                                                         {% endfor %}
                                                     </div>
                                             </div>
                                         {% endfor %}
-                                    <input class="btn btn-success btn-block" type="submit" value="Submit">
+                                    <a class="btn btn-link" href="{% url 'onlinecourse:submit' course_id=course.id %}">
+                                        <input class="btn btn-success btn-block" type="submit" value="Submit">
+                                    </a>
                                 </form> 
                             </div>
                                 
